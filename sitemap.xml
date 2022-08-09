@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html</loc>
+    
+    <lastmod>2022-08-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ni-shen.github.io/ni-shen/hello-world.html</loc>
     
     <lastmod>2022-06-29</lastmod>
@@ -13,7 +22,7 @@
 
   <url>
     <loc>https://ni-shen.github.io/</loc>
-    <lastmod>2022-08-05</lastmod>
+    <lastmod>2022-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
