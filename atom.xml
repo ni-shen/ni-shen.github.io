@@ -6,7 +6,7 @@
   <link href="https://ni-shen.github.io/atom.xml" rel="self"/>
   
   <link href="https://ni-shen.github.io/"/>
-  <updated>2022-08-10T09:52:25.819Z</updated>
+  <updated>2022-08-10T10:07:55.078Z</updated>
   <id>https://ni-shen.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>lark-jira大师与jira联动，同步协作d</title>
     <link href="https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html"/>
     <id>https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html</id>
     <published>2022-08-09T12:28:42.000Z</published>
-    <updated>2022-08-10T09:52:25.819Z</updated>
+    <updated>2022-08-10T10:07:55.078Z</updated>
     
     <content type="html"><![CDATA[<h2 id="lark-jira大师与jira联动，同步协作"><a href="#lark-jira大师与jira联动，同步协作" class="headerlink" title="lark-jira大师与jira联动，同步协作"></a>lark-jira大师与jira联动，同步协作</h2><h3 id="一、lark配置"><a href="#一、lark配置" class="headerlink" title="一、lark配置"></a>一、lark配置</h3><ol><li>lark 获取jira大师应用<blockquote><p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660044443356.png" alt="Alt text"></p></blockquote></li><li>登录jira大师管理后台配置<blockquote><p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660044666440.png" alt="Alt text"></p></blockquote></li><li>按文档配置即可<blockquote><p><a href="https://www.feishu.cn/hc/zh-CN/articles/360035933834">https://www.feishu.cn/hc/zh-CN/articles/360035933834</a></p></blockquote></li></ol><h3 id="二、jira配置"><a href="#二、jira配置" class="headerlink" title="二、jira配置"></a>二、jira配置</h3><ol><li>找到jira配置选项<blockquote><p>管理应用<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660044975446.png" alt="Alt text"></p></blockquote></li><li>与lark大师进行对接<blockquote><p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660045314031.png" alt="Alt text"></p></blockquote></li><li>按操作文档进行操作<blockquote><p><a href="https://www.feishu.cn/hc/zh-CN/articles/360035933834">https://www.feishu.cn/hc/zh-CN/articles/360035933834</a></p></blockquote></li></ol><h3 id="三、配置lark通知"><a href="#三、配置lark通知" class="headerlink" title="三、配置lark通知"></a>三、配置lark通知</h3><ol><li>找到jira大师webhook地址<blockquote><p>进入jira大师后台<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660046965554.png" alt="Alt text"><br>找到告警配置<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660046817407.png" alt="Alt text"></p></blockquote></li><li>配置jira网络钩子<blockquote><p>找到jira系统设置<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660047164750.png" alt="Alt text"><br>在左侧找到网络钩子<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660047279323.png" alt="Alt text"><br>配置即可<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660047399537.png" alt="Alt text"></p></blockquote></li></ol><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
     
