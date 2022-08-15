@@ -6,7 +6,7 @@
   <link href="https://ni-shen.github.io/atom.xml" rel="self"/>
   
   <link href="https://ni-shen.github.io/"/>
-  <updated>2022-08-12T02:53:07.431Z</updated>
+  <updated>2022-08-15T06:16:24.189Z</updated>
   <id>https://ni-shen.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>soar自动化告警方案调研</title>
+    <link href="https://ni-shen.github.io/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html"/>
+    <id>https://ni-shen.github.io/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html</id>
+    <published>2022-08-15T06:16:24.189Z</published>
+    <updated>2022-08-15T06:16:24.189Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="方案一：splunk-jira-（lark）jira大师-方案"><a href="#方案一：splunk-jira-（lark）jira大师-方案" class="headerlink" title="方案一：splunk + jira +（lark）jira大师 方案"></a>方案一：splunk + jira +（lark）jira大师 方案</h3><blockquote><h4 id="实现逻辑："><a href="#实现逻辑：" class="headerlink" title="实现逻辑："></a>实现逻辑：</h4><p>1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人<br>2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要其他人处理，可以将任务转交给他人。<br>3、针对事件处理完成度跟踪，可以通过调取jira api进行处置：<br>例：通过调取jira xql查询接口，将此项目中未完成，并且超过3天未处理的任务提取出来，并发送至lark群中，来进行闭环跟踪。</p></blockquote><blockquote><p>详细内容请看链接：<a href="https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html">https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html</a></p></blockquote><h3 id="方案二：商业版soar平台调研"><a href="#方案二：商业版soar平台调研" class="headerlink" title="方案二：商业版soar平台调研"></a>方案二：商业版soar平台调研</h3><blockquote><h4 id="网御星云智能运营系统："><a href="#网御星云智能运营系统：" class="headerlink" title="网御星云智能运营系统："></a>网御星云智能运营系统：</h4><p>附件地址：<a href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/%E6%99%BA%E8%83%BD%E8%BF%90%E8%90%A5%E7%B3%BB%E7%BB%9FLeadsec-IOS%E3%80%90%E7%BD%91%E5%BE%A1%E6%98%9F%E4%BA%91%E3%80%91.pptx">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/智能运营系统Leadsec-IOS【网御星云】.pptx</a></p></blockquote><blockquote><h4 id="HoneyGuide智能风险决策系统（雾帜智能）："><a href="#HoneyGuide智能风险决策系统（雾帜智能）：" class="headerlink" title="HoneyGuide智能风险决策系统（雾帜智能）："></a>HoneyGuide智能风险决策系统（雾帜智能）：</h4><p>附件地址：<a href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/%E9%9B%BE%E5%B8%9C%E6%99%BA%E8%83%BDHoneyGuide-SOAR%E6%99%BA%E8%83%BD%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.pdf">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/雾帜智能HoneyGuide-SOAR智能安全运营解决方案.pdf</a></p></blockquote><h3 id="方案三：开源soar平台thehive"><a href="#方案三：开源soar平台thehive" class="headerlink" title="方案三：开源soar平台thehive"></a>方案三：开源soar平台thehive</h3><blockquote><h4 id="thehive平台介绍："><a href="#thehive平台介绍：" class="headerlink" title="thehive平台介绍："></a>thehive平台介绍：</h4><p><a href="https://ni-shen.github.io/ni-shen/thehive.html">https://ni-shen.github.io/ni-shen/thehive.html</a></p></blockquote><h3 id="调研对比："><a href="#调研对比：" class="headerlink" title="调研对比："></a>调研对比：</h3><blockquote><table><thead><tr><th>功能</th><th>splunk + jira +（lark）jira大师</th><th>网御星云智能运营系统</th><th>HoneyGuide智能风险决策系统（雾帜智能）</th><th>开源soar平台thehive</th></tr></thead><tbody><tr><td>能否实现soar自动化编排</td><td>不能</td><td>可以</td><td>可以</td><td>可以</td></tr><tr><td>是否支持ldap集成</td><td>可以</td><td>不能</td><td>可以</td><td>可以</td></tr><tr><td>出现故障及发现漏洞时，是否具备售后支持</td><td>不能</td><td>可以</td><td>可以</td><td>不具备</td></tr><tr><td>是否具备移动端app</td><td>可以</td><td>不能</td><td>可以</td><td>不能</td></tr><tr><td>运营难度</td><td>简单</td><td>简单</td><td>简单</td><td>复杂</td></tr><tr><td>是否具备作战室</td><td>不具备</td><td>具备</td><td>具备</td><td>不具备</td></tr><tr><td>收否收费</td><td>免费</td><td>收费</td><td>收费</td><td>免费</td></tr></tbody></table></blockquote><blockquote><h4 id="功能描述："><a href="#功能描述：" class="headerlink" title="功能描述："></a>功能描述：</h4></blockquote><blockquote><ol><li>能否实现soar自动化编排：可以对告警事件进行进一步处理，比如对告警内容进行判断，如果是攻击，通过剧本调度对应设备对攻击IP进行封禁，发现误拦截，可以直接对其加白。</li><li>是否支持ldap集成：有些安全事件安全云隐人员可能无法单独对其进行处理，需要运维及研发同学进行协助处理。</li><li>出现故障及发现漏洞时，是否具备售后支持：当应用出现故障，以及出现高危漏洞时，是否具备修复能力，soar平台具有调取其他安全设备api的权限，一旦沦陷，问题会很严重</li><li>是否具备移动端app：下班后，技术人员很难实时盯在电脑面前，移动端具备方便，快捷，以及实时提醒的功能，技术人员可以第一时间对事件进行分析处置。</li><li>运营难度：安全运营人员上手程度，以及后续运营难度。</li><li>是否具备作战室：发生安全事件时，可以针对相应事件将相应的人，拉到一个群组里对事件共同分析处理。</li></ol></blockquote><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;方案一：splunk-jira-（lark）jira大师-方案&quot;&gt;&lt;a href=&quot;#方案一：splunk-jira-（lark）jira大师-方案&quot; class=&quot;headerlink&quot; title=&quot;方案一：splunk + jira +（lark）jira大</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>使用Thehive完成SOAR</title>
