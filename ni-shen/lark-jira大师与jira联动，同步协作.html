@@ -6,22 +6,18 @@
   <meta name="keywords" content="">
   <meta name="description" content="lark-jira大师与jira联动，同步协作d | Mr.Ceasar">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="来源：https:&#x2F;&#x2F;skilledfield.com.au&#x2F;soaring-with-thehive&#x2F; 一、介绍SOAR代表“安全编排、自动化和响应”，指的是一种解决方案，用于威胁领域，以更好地监控和响应安全监控工具和技术检测到的事件。随着探测恶意活动的更先进技术的发展，大多数机构正转向使用SOAR，利用自动化来有效地分析、升级和响应 analyse, escalate and respond">
+<meta name="description" content="方案一：splunk + jira +（lark）jira大师 方案 实现逻辑：1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Thehive完成SOAR">
-<meta property="og:url" content="https://ni-shen.github.io/ni-shen/thehive.html">
+<meta property="og:title" content="soar自动化告警方案调研">
+<meta property="og:url" content="https://ni-shen.github.io/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html">
 <meta property="og:site_name" content="Mr.Ceasar">
-<meta property="og:description" content="来源：https:&#x2F;&#x2F;skilledfield.com.au&#x2F;soaring-with-thehive&#x2F; 一、介绍SOAR代表“安全编排、自动化和响应”，指的是一种解决方案，用于威胁领域，以更好地监控和响应安全监控工具和技术检测到的事件。随着探测恶意活动的更先进技术的发展，大多数机构正转向使用SOAR，利用自动化来有效地分析、升级和响应 analyse, escalate and respond">
+<meta property="og:description" content="方案一：splunk + jira +（lark）jira大师 方案 实现逻辑：1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-2412037f86fe4d0a.png">
-<meta property="og:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-88579a669da19a7c.png">
-<meta property="og:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-272b6590aaca8661.png">
-<meta property="article:published_time" content="2022-08-12T02:53:07.431Z">
-<meta property="article:modified_time" content="2022-08-12T02:53:07.431Z">
+<meta property="article:published_time" content="2022-08-15T06:16:24.189Z">
+<meta property="article:modified_time" content="2022-08-15T06:16:24.189Z">
 <meta property="article:author" content="nishen">
 <meta property="article:tag" content="安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-2412037f86fe4d0a.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -276,7 +272,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2022-08-10 18:07:55'>2022-08-09 20:28</time>
+            Created At : <time class="date" title='Updated At: 2022-08-15 14:47:30'>2022-08-09 20:28</time>
         
     </div>
     <div class="article-meta">
@@ -298,7 +294,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C"><span class="toc-text">lark-jira大师与jira联动，同步协作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81lark%E9%85%8D%E7%BD%AE"><span class="toc-text">一、lark配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81jira%E9%85%8D%E7%BD%AE"><span class="toc-text">二、jira配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AElark%E9%80%9A%E7%9F%A5"><span class="toc-text">三、配置lark通知</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C"><span class="toc-text">lark-jira大师与jira联动，同步协作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81lark%E9%85%8D%E7%BD%AE"><span class="toc-text">一、lark配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81jira%E9%85%8D%E7%BD%AE"><span class="toc-text">二、jira配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AElark%E9%80%9A%E7%9F%A5"><span class="toc-text">三、配置lark通知</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81jira%E6%90%AD%E5%BB%BA%E5%8F%8A%E7%A0%B4%E8%A7%A3"><span class="toc-text">四、jira搭建及破解</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -352,6 +348,13 @@
 </blockquote>
 </li>
 </ol>
+<h3 id="四、jira搭建及破解"><a href="#四、jira搭建及破解" class="headerlink" title="四、jira搭建及破解"></a>四、jira搭建及破解</h3><blockquote>
+<ol>
+<li>jira 搭建<br><a target="_blank" rel="noopener" href="https://www.liuwg.com/archives/jira#google_vignette">https://www.liuwg.com/archives/jira#google_vignette</a></li>
+<li>jira 破解<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fireblackman/p/16080823.html">https://www.cnblogs.com/fireblackman/p/16080823.html</a></li>
+<li>补丁下载地址<br><a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/mysql-connector-java-5.1.48.jar">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/mysql-connector-java-5.1.48.jar</a><br><a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-extras-3.2.jar">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-extras-3.2.jar</a><br><a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-agent.jar">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-agent.jar</a></li>
+</ol>
+</blockquote>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>

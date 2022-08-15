@@ -6,22 +6,18 @@
   <meta name="keywords" content="">
   <meta name="description" content="Hello World | Mr.Ceasar">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="来源：https:&#x2F;&#x2F;skilledfield.com.au&#x2F;soaring-with-thehive&#x2F; 一、介绍SOAR代表“安全编排、自动化和响应”，指的是一种解决方案，用于威胁领域，以更好地监控和响应安全监控工具和技术检测到的事件。随着探测恶意活动的更先进技术的发展，大多数机构正转向使用SOAR，利用自动化来有效地分析、升级和响应 analyse, escalate and respond">
+<meta name="description" content="方案一：splunk + jira +（lark）jira大师 方案 实现逻辑：1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Thehive完成SOAR">
-<meta property="og:url" content="https://ni-shen.github.io/ni-shen/thehive.html">
+<meta property="og:title" content="soar自动化告警方案调研">
+<meta property="og:url" content="https://ni-shen.github.io/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html">
 <meta property="og:site_name" content="Mr.Ceasar">
-<meta property="og:description" content="来源：https:&#x2F;&#x2F;skilledfield.com.au&#x2F;soaring-with-thehive&#x2F; 一、介绍SOAR代表“安全编排、自动化和响应”，指的是一种解决方案，用于威胁领域，以更好地监控和响应安全监控工具和技术检测到的事件。随着探测恶意活动的更先进技术的发展，大多数机构正转向使用SOAR，利用自动化来有效地分析、升级和响应 analyse, escalate and respond">
+<meta property="og:description" content="方案一：splunk + jira +（lark）jira大师 方案 实现逻辑：1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-2412037f86fe4d0a.png">
-<meta property="og:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-88579a669da19a7c.png">
-<meta property="og:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-272b6590aaca8661.png">
-<meta property="article:published_time" content="2022-08-12T02:53:07.431Z">
-<meta property="article:modified_time" content="2022-08-12T02:53:07.431Z">
+<meta property="article:published_time" content="2022-08-15T06:16:24.189Z">
+<meta property="article:modified_time" content="2022-08-15T06:16:24.189Z">
 <meta property="article:author" content="nishen">
 <meta property="article:tag" content="安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-2412037f86fe4d0a.png">
 
 
 <link rel="icon" href="/img/avatar.jpg">
