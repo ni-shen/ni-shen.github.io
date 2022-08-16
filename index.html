@@ -1,541 +1,1056 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Mr.Ceasar</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="Mr.Ceasar">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="方案一：splunk + jira +（lark）jira大师 方案 实现逻辑：1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要">
-<meta property="og:type" content="article">
-<meta property="og:title" content="soar自动化告警方案调研">
-<meta property="og:url" content="https://ni-shen.github.io/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html">
-<meta property="og:site_name" content="Mr.Ceasar">
-<meta property="og:description" content="方案一：splunk + jira +（lark）jira大师 方案 实现逻辑：1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-08-15T06:16:24.189Z">
-<meta property="article:modified_time" content="2022-08-15T06:16:24.189Z">
-<meta property="article:author" content="nishen">
-<meta property="article:tag" content="安全">
-<meta name="twitter:card" content="summary">
 
 
-<link rel="icon" href="/img/avatar.jpg">
+<html lang="en">
+  
 
-<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+    <head>
+      <meta charset="utf-8" />
+       
+      <meta name="keywords" content="安全" />
+       
+      <meta name="description" content="Ceasar 的成长历程" />
+      
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> Mr.Ceasar</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
 
-<link href="/css/hl_theme/gruvbox-dark.css?v=1.1.0" rel="stylesheet">
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
 
-<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
 
-<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-<script src="/js/titleTip.js?v=1.1.0" ></script>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
 
-<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
-</script>
-
-<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
-
-
-
-<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
-
-<script src="/js/iconfont.js?v=1.1.0" ></script>
-
-<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Mr.Ceasar" type="application/atom+xml">
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    <link rel="alternate" href="/atom.xml" title="Mr.Ceasar" type="application/atom+xml">
 </head>
-<div style="display: none">
-  <input class="theme_disqus_on" value="false">
-  <input class="theme_preload_comment" value="">
-  <input class="theme_blog_path" value="">
-  <input id="theme_shortcut" value="true" />
-  <input id="theme_highlight_on" value="true" />
-  <input id="theme_code_copy" value="true" />
-</div>
-
+  </html>
+</html>
 
 
 <body>
-<aside class="nav mobile">
-    <div class="nav-left">
-        <a href="/"
-   class="avatar_target">
-    <img class="avatar"
-         src="/img/avatar.jpg"/>
-</a>
-<div class="author">
-    <span>nishen</span>
-</div>
-
-<div class="icon">
+  <div id="app">
     
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/Shen-Yu/hexo-theme-ayer"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Mr.Ceasar</a></h1>
+      <div id="subtitle-box">
         
-            <a title="rss"
-               href="/atom.xml"
-               target="_blank">
-                
-                    <svg class="iconfont-svg" aria-hidden="true">
-                        <use xlink:href="#icon-rss"></use>
-                    </svg>
-                
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['面朝大海，春暖花开', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  <ul class="ads">
+    
+        <li>
+            <a target="_blank" rel="noopener" href="https://curl.qcloud.com/kvO7hb43">
+                <img src="https://pic.imgdb.cn/item/62174b452ab3f51d912a5ccc.jpg" width="300" alt="云服务器限时秒杀">
             </a>
-        
+        </li>
     
-        
-            <a title="github"
-               href="https://github.com/ni-shen"
-               target="_blank">
-                
-                    <svg class="iconfont-svg" aria-hidden="true">
-                        <use xlink:href="#icon-github"></use>
-                    </svg>
-                
+        <li>
+            <a target="_blank" rel="noopener" href="https://www.vultr.com/?ref=8630075">
+                <img src="https://pic.imgdb.cn/item/62174b452ab3f51d912a5cd7.png" width="300" alt="vultr优惠vps">
             </a>
-        
-    
-        
-            <a title="email"
-               href="mailto:nishen2711@163.com"
-               target="_blank">
-                
-                    <svg class="iconfont-svg" aria-hidden="true">
-                        <use xlink:href="#icon-email"></use>
-                    </svg>
-                
-            </a>
-        
-    
-        
-            <a title="qq"
-               href="http://wpa.qq.com/msgrd?v=3&uin=1454859074&site=qq&menu=yes"
-               target="_blank">
-                
-                    <svg class="iconfont-svg" aria-hidden="true">
-                        <use xlink:href="#icon-qq"></use>
-                    </svg>
-                
-            </a>
-        
-    
-</div>
-
-
-
-
-<ul>
-    <li>
-        <div class="all active" data-rel="All">All
-            
-                <small>(5)</small>
-            
-        </div>
-    </li>
+        </li>
     
 </ul>
-<div class="left-bottom">
-    <div class="menus">
-        
-            
-            
-            
-    </div>
-    <div>
-        
-            <a class="about  hasFriend  site_url"
-               
-               href="/about">About</a>
-        
-        <a style="width: 50%"
-                
-                                           class="friends">Friends</a>
-        
-    </div>
+  
+  
+  
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="5">
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
 
-<div style="display: none">
-    <span id="busuanzi_value_site_uv"></span>
-    <span id="busuanzi_value_site_pv"></span>
-</div>
-
-    </div>
-    <div class="nav-right">
-        <div class="friends-area">
-    <div class="friends-title">
-        Links
-        <i class="iconfont icon-left"></i>
-    </div>
-    <div class="friends-content">
-        <ul>
-            
-            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
-            
-        </ul>
-    </div>
-</div>
-        <div class="title-list">
-    <div class="right-top">
-        <div id="default-panel">
-            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
-            <div class="right-title">All</div>
-            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
-        </div>
-        <div id="search-panel">
-            <i class="iconfont icon-left" data-title="返回"></i>
-            <input id="local-search-input" autocomplete="off"/>
-            <label class="border-line" for="input"></label>
-            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
-            <i class="iconfont icon-tag" data-title="标签"></i>
-        </div>
-        <div id="outline-panel" style="display: none">
-            <div class="right-title">大纲</div>
-            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
-        </div>
-    </div>
-
-    <div class="tags-list">
-    <input id="tag-search" />
-    <div class="tag-wrapper">
-        
-    </div>
-
-</div>
-
-    
-    <nav id="title-list-nav">
-        
-        
-        <a  class="All "
-           href="/ni-shen/Akamai-EAA.html"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="零信任产品之 Akamai EAA">零信任产品之 Akamai EAA</span>
-            <span class="post-date" title="2022-08-16 11:05:05">2022/08/16</span>
-        </a>
-        
-        
-        <a  class="All "
-           href="/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="soar自动化告警方案调研">soar自动化告警方案调研</span>
-            <span class="post-date" title="2022-08-15 14:16:24">2022/08/15</span>
-        </a>
-        
-        
-        <a  class="All "
-           href="/ni-shen/thehive.html"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="使用Thehive完成SOAR">使用Thehive完成SOAR</span>
-            <span class="post-date" title="2022-08-12 10:53:07">2022/08/12</span>
-        </a>
-        
-        
-        <a  class="All "
-           href="/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="lark-jira大师与jira联动，同步协作d">lark-jira大师与jira联动，同步协作d</span>
-            <span class="post-date" title="2022-08-09 20:28:42">2022/08/09</span>
-        </a>
-        
-        
-        <a  class="All "
-           href="/ni-shen/hello-world.html"
-           data-tag=""
-           data-author="" >
-            <span class="post-title" title="Hello World">Hello World</span>
-            <span class="post-date" title="2022-06-29 17:57:42">2022/06/29</span>
-        </a>
-        
-        <div id="no-item-tips">
-
-        </div>
-    </nav>
-    <div id="outline-list">
-    </div>
-</div>
-
-    </div>
-    <div class="hide-list">
-        <div class="semicircle" data-title="切换全屏 快捷键 s">
-            <div class="brackets first"><</div>
-            <div class="brackets">&gt;</div>
-        </div>
-    </div>
-</aside>
-<div id="post" class="index">
-    <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
-    
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%99%E7%82%B9%E5%BF%AB%E6%8D%B7%E9%94%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">站点快捷键说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NiShen"><span class="toc-text">NiShen</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80"><span class="toc-text">全局</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E5%B9%B3%E5%8F%B0"><span class="toc-text">博客平台</span></a>
-    
 <style>
-    .left-col .switch-btn,
-    .left-col .switch-area {
-        display: none;
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
     }
-    .toc-level-3 i,
-    .toc-level-3 ol {
-        display: none !important;
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
     }
 </style>
-</div>
-            <h3 id="站点快捷键说明"><a href="#站点快捷键说明" class="headerlink" title="站点快捷键说明"></a>站点快捷键说明</h3><p>快捷键为vim风格的，搜索支持文章标题及内容、标签(#标签)按键可能与vimium（chrome插件）的快捷键有冲突，插件设置屏蔽掉此站的快捷键即可</p>
-<h3 id="NiShen"><a href="#NiShen" class="headerlink" title="NiShen"></a>NiShen</h3><blockquote>
-<p>心之所向，光芒万丈</p>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-Akamai-EAA"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ni-shen/Akamai-EAA.html"
+    >零信任产品之 Akamai EAA</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ni-shen/Akamai-EAA.html" class="article-date">
+  <time datetime="2022-08-16T03:05:05.268Z" itemprop="datePublished">2022-08-16</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="Akamai-EAA"><a href="#Akamai-EAA" class="headerlink" title="Akamai EAA"></a>Akamai EAA</h3><hr>
+<h4 id="现有解决方案及其局限性"><a href="#现有解决方案及其局限性" class="headerlink" title="现有解决方案及其局限性"></a>现有解决方案及其局限性</h4><blockquote>
+<ul>
+<li>应用直接面对公网威胁</li>
+<li>VPN部署和防火墙规则不灵活，VPN访问慢</li>
+<li>多应用情况下的单点登陆</li>
+<li>对访问终端安全没有控制方式，恶意软件，网络钓鱼和数据泄露</li>
+</ul>
 </blockquote>
-<h4 id="全局"><a href="#全局" class="headerlink" title="全局"></a>全局</h4><table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>s&#x2F;S</td>
-<td>全屏&#x2F;取消全屏</td>
-</tr>
-<tr>
-<td>w&#x2F;W</td>
-<td>打开&#x2F;关闭文章目录</td>
-</tr>
-<tr>
-<td>j&#x2F;J</td>
-<td>向下滑动</td>
-</tr>
-<tr>
-<td>k&#x2F;K</td>
-<td>向上滑动</td>
-</tr>
-<tr>
-<td>gg&#x2F;GG</td>
-<td>到最顶端</td>
-</tr>
-<tr>
-<td>shift+G&#x2F;g</td>
-<td>到最下端</td>
-</tr>
-</tbody></table>
-<p>搜索框</p>
+<h4 id="Akamai方案EAA"><a href="#Akamai方案EAA" class="headerlink" title="Akamai方案EAA"></a>Akamai方案EAA</h4><blockquote>
+<ul>
+<li>访问的安全性</li>
+<li>网络的安全性</li>
+<li>访问审计的安全性</li>
+<li>管理的易用性</li>
+<li>运营成本的支出</li>
+<li>Akamai EAA方案优点</li>
+<li>快速安装部署无需安装客户端</li>
+<li>降低资本支出和运营成本</li>
+<li>简化管理</li>
+<li>确保应用安全</li>
+</ul>
+</blockquote>
+<hr>
+<h4 id="Identity-Provider-IdP"><a href="#Identity-Provider-IdP" class="headerlink" title="Identity Provider(IdP)"></a>Identity Provider(IdP)</h4><blockquote>
+<p>外部身份源（Identity Provider，简称 IdP）指的是一个存储和管理用户信息的外部服务，使用外部身份服务商可以降低用户管理成本以及降低用户使用成本。</p>
+</blockquote>
+<h3 id="零信任网络安全框架"><a href="#零信任网络安全框架" class="headerlink" title="零信任网络安全框架"></a>零信任网络安全框架</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.authing.cn/v2/concepts/zero-trust-network.html">https://docs.authing.cn/v2/concepts/zero-trust-network.html</a></p>
+</blockquote>
+<blockquote>
+<p><strong>概念：</strong> 零信任是一种安全模型，基于多种信任要素（如访问主体身份、网络环境、终端状态等）对所有用户进行持续验证和动态授权。 （由弗雷斯特研究公司首席分析师JohnKindervag提出）</p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.akamai.com/zh/our-thinking/zero-trust/where-to-start-with-zero-trust-security">Akamai 被评为 Zero Trust 领导者</a>。</p>
+<ul>
+<li>传统的安全模型通过 一次验证+静态授权的方式评估实体风险，</li>
+<li>而零信任基于 持续验证+动态授权 的模式构筑企业的安全基石。</li>
+</ul>
+</blockquote>
+<h4 id="零信任核心原则"><a href="#零信任核心原则" class="headerlink" title="零信任核心原则"></a>零信任核心原则</h4><blockquote>
+<ul>
+<li><strong>永不信任，持续验证 构建身份安全基石</strong></li>
+<li>零信任对人，终端和应用进行统一身份化管理，建立以身份为中心的访问控制机制。</li>
+<li>以动态考量因素(如访问主体身份、网络环境、终端状态等)持续检测访问过重中违规和异常行为，确保接入网络的用户和终端持续可信</li>
+<li><strong>动态授权 ， 精细访问控制，权限随需而动</strong></li>
+<li>零信任将访问目标的权限细化到应用级、功能级、数据级，只对访问主体开放所需的应用、功能或数据，满足最小权限原则，收缩潜在攻击面。</li>
+<li>同时安全控制策略给予访问主体、目标客体、环境属性(终端状态、网络风险、用户行为等)进行权限动态判定，实现应用功能、数据等维度的精细划分和动态控制。</li>
+<li><strong>全局防御， 协同联动，威胁快速处置</strong></li>
+<li>零信任通过对终端风险、用户行为异常、流量威胁、应用鉴权行为进行多方面评估，对信任分低的应用或设备生成相应的处置策略，联动网络或安全设备进行威胁快速处置。</li>
+<li>零信任的技术本质是以身份为基石的动态访问控制，其主要价值为将安全能力内嵌入业务体系，构建自适应的内生安全机制。<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/20220816103203.png"></li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>好处：</strong></p>
+<ul>
+<li><strong>场景：</strong>异地协同办公，数据融合管理，业务云化部署</li>
+<li>每个用户及其所使用的访问设备进行身份验证，同时将每个用户的权限降低到处理其业务所需的绝对最小权限。</li>
+<li><strong>企业部署场景</strong></li>
+<li>具有远程分支机构</li>
+<li>多云</li>
+<li>有大量非员工访问需求</li>
+<li>跨企业边界的写作文</li>
+<li>面向公众的服务企业</li>
+</ul>
+</blockquote>
+<h4 id="零信任架构（ZTA）实施建议"><a href="#零信任架构（ZTA）实施建议" class="headerlink" title="零信任架构（ZTA）实施建议"></a>零信任架构（ZTA）实施建议</h4><blockquote>
+<ul>
+<li>零信任：同步工作</li>
+<li>优先考虑实施，关键网络最先实施</li>
+<li>设置零信任管理岗位</li>
+<li>数据通信全程加密</li>
+<li>用户认证</li>
+<li>探索和测试颗粒度更细的用户属性</li>
+<li>身份管理者统一管理</li>
+<li>管理职权依赖任务临时分配</li>
+<li>开发用户许可级别</li>
+<li>各组织之间制定共同战略</li>
+<li>将零信任原则作为用户和设备的基线</li>
+<li>设备认证</li>
+<li>准入前设备检查和定期设备健康检查</li>
+<li>记录设备使用日志</li>
+<li>构建 “以便携为中心” 的设备管理</li>
+<li>最小权限访问授权</li>
+<li>使用单一联合授权源</li>
+<li>精细的级别标记数据和资源</li>
+<li>用户和设备位置与授权解耦</li>
+</ul>
+</blockquote>
+<h3 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h3><hr>
+<h4 id="EAA与VPN的区别和优势"><a href="#EAA与VPN的区别和优势" class="headerlink" title="EAA与VPN的区别和优势"></a>EAA与VPN的区别和优势</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/174224.html?utm_content=g_1000230851&spm=5176.20966629.toubu.3.f2991ddcpxxvD1#CWelL"><strong>SAML身份验证机制</strong></a></p>
+<p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/20220816105140.png"></p>
+<p>SAML（Security Assertion Markup Language）是一个基于XML的开放标准数据格式，用于在不同的安全域之间交换认证和数据授权。SAML解决的最重要的需求是Web端应用的单点登录（SSO）</p>
+</blockquote>
+<h4 id="SAML协议工作流程"><a href="#SAML协议工作流程" class="headerlink" title="SAML协议工作流程"></a>SAML协议工作流程</h4><blockquote>
+<p><strong>SAML角色：</strong></p>
+<ul>
+<li>SP(Service Provider) : 向用户提供服务的web 端应用</li>
+<li>IdP(Identity Provider) : 向SP提供用户身份信息</li>
+<li>User : 通过登录IDP获取身份断言，并向SP返回身份断言来使用SP提供服务的用户</li>
+<li>用户请求访问 Web 应用系统。</li>
+<li>Web 应用系统生成一个 SAML 身份验证请求。</li>
+<li>Web 应用系统将重定向网址发送到用户的浏览器。重定向网址包含应向SSO 服务提交的编码 SAML 身份验证请求。</li>
+<li>IDP 对 SAML 请求进行解码。</li>
+<li>IDP对用户进行身份验证。认证成功后，IDP生成一个 SAML 响应，其中包含经过验证的用户的用户名。然后将SAML 响应编码并返回到用户的浏览器。</li>
+<li>浏览器将 SAML 响应转发到 Web 应用系统 ACS URL。</li>
+<li>Web 应用系统使用 IDP 的公钥验证 SAML 响应。如果成功验证该响应，ACS 则会将用户重定向到目标网址。</li>
+<li>用户将重定向到目标网址并登录到 Web 应用系统。<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/20220816105611.png"></li>
+</ul>
+<p> 在 SAML 协议中，IDP 和 SP 不需要直接进行通讯，只要用户浏览器可以访问到 IDP 和 SP 即可。</p>
+<p> 也就是说 SAML 协议在混合云环境下也可以正常进行使用，只要用户浏览器可以访问到公有云的 IDP 和内网的应用就可以使用 SAML 协议集成应用的单点登录。</p>
+</blockquote>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a target="_blank" rel="noopener" href="https://info.support.huawei.com/info-finder/encyclopedia/zh/%E9%9B%B6%E4%BF%A1%E4%BB%BB.html">什么是零信任，为什么零信任很重要</a></p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css"> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-soar自动化告警方案调研"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html"
+    >soar自动化告警方案调研</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ni-shen/soar%E8%87%AA%E5%8A%A8%E5%8C%96%E5%91%8A%E8%AD%A6%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94.html" class="article-date">
+  <time datetime="2022-08-15T06:16:24.189Z" itemprop="datePublished">2022-08-15</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="方案一：splunk-jira-（lark）jira大师-方案"><a href="#方案一：splunk-jira-（lark）jira大师-方案" class="headerlink" title="方案一：splunk + jira +（lark）jira大师 方案"></a>方案一：splunk + jira +（lark）jira大师 方案</h3><blockquote>
+<h4 id="实现逻辑："><a href="#实现逻辑：" class="headerlink" title="实现逻辑："></a>实现逻辑：</h4><p>1、配置splunk，jira联动，splunk上触发告警，同步将告警信息发送至lark群中，并且在jira上创建相应任务，并指给对应处置告警人<br>2、配置lark（jira大师）与jira联动，jira创建相应任务后，会同步将任务通过jira大师机器人发送给对应处理人，处理人可以直接在lark上进行编辑处理，如果任务需要其他人处理，可以将任务转交给他人。<br>3、针对事件处理完成度跟踪，可以通过调取jira api进行处置：<br>例：通过调取jira xql查询接口，将此项目中未完成，并且超过3天未处理的任务提取出来，并发送至lark群中，来进行闭环跟踪。</p>
+</blockquote>
+<blockquote>
+<p>详细内容请看链接：<a href="https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html">https://ni-shen.github.io/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html</a></p>
+</blockquote>
+<h3 id="方案二：商业版soar平台调研"><a href="#方案二：商业版soar平台调研" class="headerlink" title="方案二：商业版soar平台调研"></a>方案二：商业版soar平台调研</h3><blockquote>
+<h4 id="网御星云智能运营系统："><a href="#网御星云智能运营系统：" class="headerlink" title="网御星云智能运营系统："></a>网御星云智能运营系统：</h4><p>附件地址：<a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/%E6%99%BA%E8%83%BD%E8%BF%90%E8%90%A5%E7%B3%BB%E7%BB%9FLeadsec-IOS%E3%80%90%E7%BD%91%E5%BE%A1%E6%98%9F%E4%BA%91%E3%80%91.pptx">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/智能运营系统Leadsec-IOS【网御星云】.pptx</a></p>
+</blockquote>
+<blockquote>
+<h4 id="HoneyGuide智能风险决策系统（雾帜智能）："><a href="#HoneyGuide智能风险决策系统（雾帜智能）：" class="headerlink" title="HoneyGuide智能风险决策系统（雾帜智能）："></a>HoneyGuide智能风险决策系统（雾帜智能）：</h4><p>附件地址：<a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/%E9%9B%BE%E5%B8%9C%E6%99%BA%E8%83%BDHoneyGuide-SOAR%E6%99%BA%E8%83%BD%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.pdf">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/雾帜智能HoneyGuide-SOAR智能安全运营解决方案.pdf</a></p>
+</blockquote>
+<h3 id="方案三：开源soar平台thehive"><a href="#方案三：开源soar平台thehive" class="headerlink" title="方案三：开源soar平台thehive"></a>方案三：开源soar平台thehive</h3><blockquote>
+<h4 id="thehive平台介绍："><a href="#thehive平台介绍：" class="headerlink" title="thehive平台介绍："></a>thehive平台介绍：</h4><p><a href="https://ni-shen.github.io/ni-shen/thehive.html">https://ni-shen.github.io/ni-shen/thehive.html</a></p>
+</blockquote>
+<h3 id="调研对比："><a href="#调研对比：" class="headerlink" title="调研对比："></a>调研对比：</h3><blockquote>
 <table>
 <thead>
 <tr>
-<th>Key</th>
-<th>Descption</th>
+<th>功能</th>
+<th>splunk + jira +（lark）jira大师</th>
+<th>网御星云智能运营系统</th>
+<th>HoneyGuide智能风险决策系统（雾帜智能）</th>
+<th>开源soar平台thehive</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>i&#x2F;I</td>
-<td>激活搜索框</td>
+<td>能否实现soar自动化编排</td>
+<td>不能</td>
+<td>可以</td>
+<td>可以</td>
+<td>可以</td>
 </tr>
 <tr>
-<td>ESC</td>
-<td>1.如果输入框有内容，清除内容 2.如果输入框无内容，失去焦点</td>
+<td>是否支持ldap集成</td>
+<td>可以</td>
+<td>不能</td>
+<td>可以</td>
+<td>可以</td>
 </tr>
 <tr>
-<td>下</td>
-<td>向下选择文章</td>
+<td>出现故障及发现漏洞时，是否具备售后支持</td>
+<td>不能</td>
+<td>可以</td>
+<td>可以</td>
+<td>不具备</td>
 </tr>
 <tr>
-<td>上</td>
-<td>向上选择文章</td>
+<td>是否具备移动端app</td>
+<td>可以</td>
+<td>不能</td>
+<td>可以</td>
+<td>不能</td>
 </tr>
 <tr>
-<td>回车</td>
-<td>打开当前选中的文章，若没有，则默认打开第一个</td>
+<td>运营难度</td>
+<td>简单</td>
+<td>简单</td>
+<td>简单</td>
+<td>复杂</td>
+</tr>
+<tr>
+<td>是否具备作战室</td>
+<td>不具备</td>
+<td>具备</td>
+<td>具备</td>
+<td>不具备</td>
+</tr>
+<tr>
+<td>收否收费</td>
+<td>免费</td>
+<td>收费</td>
+<td>收费</td>
+<td>免费</td>
 </tr>
 </tbody></table>
-<p>**** 倪神 的个人站。</p>
-<p>到目前为止已经写了<code class="article_number"></code>篇文章， 共<code class="site_word_count"></code>字。</p>
-<p>本站访问人数：<code class="site_uv"></code>人次 ， 访问量：<code class="site_pv"></code>次</p>
-<h2 id="博客平台"><a href="#博客平台" class="headerlink" title="博客平台"></a>博客平台</h2><p>这个博客通过 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> 生成，部署在 <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a>主题 <a target="_blank" rel="noopener" href="https://github.com/yelog/hexo-theme-3-hexo">3-hexo</a> 已经在github上开源</p>
-<p>主要功能：</p>
-<ul>
-<li>搜索支持文章标题、标签(#标签)、作者(@作者)</li>
-<li>pad&#x2F;手机等移动端适配</li>
-<li>页面全局快捷键 <a target="_blank" rel="noopener" href='http://yelog.org/2017/03/24/3-hexo-shortcuts/'>3-hexo快捷键说明</a></li>
-</ul>
-
-        </article>
-        
-        <p>
-            <a  class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
-        
+</blockquote>
+<blockquote>
+<h4 id="功能描述："><a href="#功能描述：" class="headerlink" title="功能描述："></a>功能描述：</h4></blockquote>
+<blockquote>
+<ol>
+<li>能否实现soar自动化编排：可以对告警事件进行进一步处理，比如对告警内容进行判断，如果是攻击，通过剧本调度对应设备对攻击IP进行封禁，发现误拦截，可以直接对其加白。</li>
+<li>是否支持ldap集成：有些安全事件安全云隐人员可能无法单独对其进行处理，需要运维及研发同学进行协助处理。</li>
+<li>出现故障及发现漏洞时，是否具备售后支持：当应用出现故障，以及出现高危漏洞时，是否具备修复能力，soar平台具有调取其他安全设备api的权限，一旦沦陷，问题会很严重</li>
+<li>是否具备移动端app：下班后，技术人员很难实时盯在电脑面前，移动端具备方便，快捷，以及实时提醒的功能，技术人员可以第一时间对事件进行分析处置。</li>
+<li>运营难度：安全运营人员上手程度，以及后续运营难度。</li>
+<li>是否具备作战室：发生安全事件时，可以针对相应事件将相应的人，拉到一个群组里对事件共同分析处理。</li>
+</ol>
+</blockquote>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css"> 
+      <!-- reward -->
+      
     </div>
-    <div class="copyright">
-        <p class="footer-entry">
-    ©2016-2020 Mr.Ceasar
-</p>
-<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+    
 
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-thehive"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ni-shen/thehive.html"
+    >使用Thehive完成SOAR</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ni-shen/thehive.html" class="article-date">
+  <time datetime="2022-08-12T02:53:07.431Z" itemprop="datePublished">2022-08-12</time>
+</a>    
     </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>来源：<a target="_blank" rel="noopener" href="https://skilledfield.com.au/soaring-with-thehive/">https://skilledfield.com.au/soaring-with-thehive/</a></p>
+<h3 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h3><p>SOAR代表“安全编排、自动化和响应”，指的是一种解决方案，用于威胁领域，以更好地监控和响应安全监控工具和技术检测到的事件。随着探测恶意活动的更先进技术的发展，大多数机构正转向使用SOAR，利用自动化来有效地分析、升级和响应 analyse, escalate and respond 安全威胁。</p>
+<h4 id="检测方法"><a href="#检测方法" class="headerlink" title="检测方法:"></a>检测方法:</h4><p>安全运营中心（Security Operations Centres）也被称为SOC，它们有监控和保护关键资产的系统。这些系统有复杂的规则，以及不断运行的先进机器学习算法，以检测任何可能被归类为恶意的活动。一旦检测发生，下一步是将信息发送到SOC，供安全分析师进行调查。这个信息通常以告警Alert的形式发送进来。SOC团队然后尝试根据SLA(服务水平协议)在固定的时间内解决告警。</p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析:"></a>分析:</h4><p>安全分析师将分析告警以验证潜在的攻击，确定实际发生了什么，并评估事件的影响。基于此，安全运营团队可以执行响应操作来减轻威胁参与者。</p>
+<blockquote>
+<p>“如果分析师试图证明一项告警是有效的，他们要比试图证明它是无效的多花三分之二的时间。”</p>
+</blockquote>
+<blockquote>
+<p>克里斯·森德斯——调查理论</p>
+</blockquote>
+<h4 id="响应"><a href="#响应" class="headerlink" title="响应:"></a>响应:</h4><p>通常，安全分析人员必须执行一些任务来解决告警。其中一些任务非常复杂，需要网络安全专家来完成。然而，安全分析人员也会遇到平凡而重复的任务。当分析人员接触到具有相同或重复任务的大量告警时，他们往往会出现告警疲劳，这可能导致性能降低和响应时间延长。这就是SOAR来救援的地方!</p>
+<h4 id="SOAR"><a href="#SOAR" class="headerlink" title="SOAR:"></a>SOAR:</h4><p>SOAR强调自动化，以帮助安全团队增加带宽，专注于解决安全问题。与分析师接收警报类似，SOAR解决方案也将接收警报并对其执行一些分析。根据分析结果，将有一个响应操作来减轻威胁参与者。</p>
+<h3 id="二、TheHive——安全事件响应"><a href="#二、TheHive——安全事件响应" class="headerlink" title="二、TheHive——安全事件响应"></a>二、TheHive——安全事件响应</h3><p>TheHive是一个可扩展的四合一开源和免费的安全事件响应平台。这4个是TheHive, Cortex, TheHive4py (TheHive的python API)和MISP。TheHive的设计是为了让soc、csirt、cert和任何信息安全从业者在处理需要迅速调查和采取行动的安全事件时生活得更轻松。简单地说，TheHive作为SOC的前端应用程序，在三个基本阶段(检测、分析和响应)以及从创建到关闭的案例&#x2F;告警管理中提供帮助。</p>
+<p>###三、Cortex-强大的可观察分析和反应<br>Cortex是另一款由TheHive同一团队开发并与TheHive紧密合作的软件。TheHive和Cortex可以一起使用，使SOC的生活更容易。在这样的解决方案中，任何可以帮助减轻威胁行为者的破坏指标(Indicator of Compromise, IoC)或取证数据片段都被列为可观察对象 observable。Cortex是一个强大的可观察分析和主动响应引擎。它有有助于分析这些观测数据的分析器。分析者还帮助用有价值的信息丰富TheHive的告警。利用这些有价值的信息，分析人员可以运行Cortex上的Responders，轻松地自动解决安全告警。</p>
+<p>Cortex提供了一个web界面，用于分析IP、电子邮件地址、url、域名、文件或恶意软件的哈希值。然而，这两个应用程序可以集成在一起，使用REST API进行通信，而不是在web界面之间切换。Cortex配备了分析仪和响应器，以协助安全操作的自动化。这些分析器和响应器是可以用Linux支持的任何编程语言(如Python、Ruby、Perl等)编写的自动化脚本。在我写这篇博文的时候，大约有160个analyser和24个Responders默认安装了Cortex。然而，你可以选择编写自己的分析器和响应器，并将其放在指定的目录中供Cortex使用。</p>
+<p>TheHive &amp; Cortex完全由StrangeBee开发和维护。</p>
+<h3 id="四、MISP-开源威胁Intel共享"><a href="#四、MISP-开源威胁Intel共享" class="headerlink" title="四、MISP -开源威胁Intel共享"></a>四、MISP -开源威胁Intel共享</h3><p>恶意软件信息共享平台是一种开源软件解决方案，用于收集、存储、分发和共享网络安全指标、网络安全事件威胁和恶意软件分析。这是由CIRCL开发和维护的。除了MISP的许多用途之外，这个解决方案可以利用的一个主要用途是订阅许多开源威胁情报源。当TheHive与Cortex和MISP整合在一起时，它的真正力量就会显现出来。这三种工具共同作用，形成安全行动中心事件分析&#x2F;响应和案例管理的全面解决方案。</p>
+<p>每一个需要调查的安全事件都会作为警报进入TheHive。MISP有一些世界级的威胁情报供分析师或安全团队使用。因此，每当有一些新的威胁信息添加到MISP，它将自动填充到TheHive上进行分类，分析和响应。此外，除了从MISP接收事件外，还可以将解决方案配置为向MISP发送事件。因此，SOC可以将发现的威胁信息反馈给MISP，以帮助更广泛的社区领先黑客一步。</p>
+<p>一幅画胜过千言万语!<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-2412037f86fe4d0a.png"></p>
+<h3 id="五、剧本Playbooks-工作流自动化"><a href="#五、剧本Playbooks-工作流自动化" class="headerlink" title="五、剧本Playbooks-工作流自动化"></a>五、剧本Playbooks-工作流自动化</h3><p>在安全运营领域，分析师将致力于解决非常复杂的安全告警。这些任务中的大多数都非常复杂，需要安全专业知识。然而，对于安全专家来说，要查看生成的每一条信息，有些任务可能是平凡而耗时的。像这样的任务，有更高的人为错误的机会，这是自动化可以帮助的地方。自动化旨在减少人为干预和人为错误的可能性。</p>
+<p>在前面的小节中，我们已经看到了如何利用开源工具的强大功能来为SOC创建一个独特的解决方案。下一步是增加一个额外的层，这将有助于自动执行一些平凡和重复的任务，以提高网络安全团队的效率。</p>
+<p>Thehive和Cortex都有外部工具的API来利用它们的功能。TheHive有一个webhook功能，它可以在发生任何更改或事件时通知其他工具。这些强大的功能使自动化成为可能。</p>
+<p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-88579a669da19a7c.png"></p>
+<h4 id="剧本Playbooks"><a href="#剧本Playbooks" class="headerlink" title="剧本Playbooks:"></a>剧本Playbooks:</h4><p>剧本是在任何事件发生时应以特定方式执行的一系列步骤。</p>
+<h4 id="自动化"><a href="#自动化" class="headerlink" title="自动化:"></a>自动化:</h4><p>安全分析师可以设计和开发剧本来自动化安全告警分析和响应。有了TheHive和Cortex中可用的API和Webhook功能，它们的功能可以通过任何工作流自动化工具来创建这些脚本。</p>
+<p>在我写这篇博客的时候，开源社区使用了一些工具。其中包括n8n、nodered、shuffle和tines。</p>
+<p>n8n的示例脚本如下所示。<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/5619637-272b6590aaca8661.png"></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>我们已经看到了如何使用开源工具构建一个完全自动化和自由的SOAR解决方案。使用开源工具的好处在于，开发人员可以很容易地修改它们以满足您的需求。此外，还有一个使用、改进和支持这些工具的开源社区。</p>
+<p>因为这个解决方案是开源和灵活的;这意味着它可以与其他解决方案集成。最有价值的集成之一是与Elastic SIEM的集成。Elastic SIEM为从所有设备中提取、转换和加载(ETL)日志和机器数据到Elasticsearch (Elastic堆栈的核心)提供了一种增强和简化的解决方案。然后，Elastic可以使用解析和充实技术来添加元数据，并使用最先进的机器学习(ML)来增强威胁分析和恶意行为检测。一个检测可以被发送到TheHive作为告警，并可能有一个全自动的解决方案来处理告警直至关闭。</p>
+<p>作者：ni shen<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css"> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-lark-jira大师与jira联动，同步协作"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html"
+    >lark-jira大师与jira联动，同步协作d</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ni-shen/lark-jira%E5%A4%A7%E5%B8%88%E4%B8%8Ejira%E8%81%94%E5%8A%A8%EF%BC%8C%E5%90%8C%E6%AD%A5%E5%8D%8F%E4%BD%9C.html" class="article-date">
+  <time datetime="2022-08-09T12:28:42.000Z" itemprop="datePublished">2022-08-09</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="lark-jira大师与jira联动，同步协作"><a href="#lark-jira大师与jira联动，同步协作" class="headerlink" title="lark-jira大师与jira联动，同步协作"></a>lark-jira大师与jira联动，同步协作</h2><h3 id="一、lark配置"><a href="#一、lark配置" class="headerlink" title="一、lark配置"></a>一、lark配置</h3><ol>
+<li>lark 获取jira大师应用<blockquote>
+<p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660044443356.png" alt="Alt text"></p>
+</blockquote>
+</li>
+<li>登录jira大师管理后台配置<blockquote>
+<p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660044666440.png" alt="Alt text"></p>
+</blockquote>
+</li>
+<li>按文档配置即可<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.feishu.cn/hc/zh-CN/articles/360035933834">https://www.feishu.cn/hc/zh-CN/articles/360035933834</a></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="二、jira配置"><a href="#二、jira配置" class="headerlink" title="二、jira配置"></a>二、jira配置</h3><ol>
+<li>找到jira配置选项<blockquote>
+<p>管理应用<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660044975446.png" alt="Alt text"></p>
+</blockquote>
+</li>
+<li>与lark大师进行对接<blockquote>
+<p><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660045314031.png" alt="Alt text"></p>
+</blockquote>
+</li>
+<li>按操作文档进行操作<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.feishu.cn/hc/zh-CN/articles/360035933834">https://www.feishu.cn/hc/zh-CN/articles/360035933834</a></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="三、配置lark通知"><a href="#三、配置lark通知" class="headerlink" title="三、配置lark通知"></a>三、配置lark通知</h3><ol>
+<li>找到jira大师webhook地址<blockquote>
+<p>进入jira大师后台<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660046965554.png" alt="Alt text"><br>找到告警配置<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660046817407.png" alt="Alt text"></p>
+</blockquote>
+</li>
+<li>配置jira网络钩子<blockquote>
+<p>找到jira系统设置<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660047164750.png" alt="Alt text"><br>在左侧找到网络钩子<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660047279323.png" alt="Alt text"><br>配置即可<br><img src="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/1660047399537.png" alt="Alt text"></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="四、jira搭建及破解"><a href="#四、jira搭建及破解" class="headerlink" title="四、jira搭建及破解"></a>四、jira搭建及破解</h3><blockquote>
+<ol>
+<li>jira 搭建<br><a target="_blank" rel="noopener" href="https://www.liuwg.com/archives/jira#google_vignette">https://www.liuwg.com/archives/jira#google_vignette</a></li>
+<li>jira 破解<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fireblackman/p/16080823.html">https://www.cnblogs.com/fireblackman/p/16080823.html</a></li>
+<li>补丁下载地址<br><a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/mysql-connector-java-5.1.48.jar">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/mysql-connector-java-5.1.48.jar</a><br><a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-extras-3.2.jar">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-extras-3.2.jar</a><br><a target="_blank" rel="noopener" href="https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-agent.jar">https://boke-1304808738.cos.ap-nanjing.myqcloud.com/test/atlassian-agent.jar</a></li>
+</ol>
+</blockquote>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css"> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-hello-world"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ni-shen/hello-world.html"
+    >Hello World</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ni-shen/hello-world.html" class="article-date">
+  <time datetime="2022-06-29T09:57:42.160Z" itemprop="datePublished">2022-06-29</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+</code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+</code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+</code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+</code></pre>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css"> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+  </article>
+  
+
+  
+</section>
 </div>
-<div class="full-toc">
-    <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
-<a class="" id="rocket" ></a>
 
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2022
+        <i class="ri-heart-fill heart_icon"></i> nishen
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
 </div>
 
-<div class="hide_box" onclick="dashangToggle()"></div>
-<div class="shang_box">
-    <a class="shang_close"  onclick="dashangToggle()">×</a>
-    <div class="shang_tit">
-        <p>Help us with donation</p>
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
     </div>
-    <div class="shang_payimg">
-        <div class="pay_img">
-            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
-            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Mr.Ceasar"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
         </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
     </div>
-    <div class="shang_payselect">
-        <span><label><input type="radio" name="pay" checked value="alipay">alipay</label></span><span><label><input type="radio" name="pay" value="weixin">weixin</label></span>
-    </div>
+
 </div>
 
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
 
-</body>
-<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
-
-<script src="/js/script.js?v=1.1.0" ></script>
 <script>
-    var img_resize = 'default';
-    function initArticle() {
-        /*渲染对应的表格样式*/
-        
-            $("#post .pjax table").addClass("green_title");
-        
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
 
-        /*渲染打赏样式*/
-        
-        $("input[name=pay]").on("click", function () {
-            if($("input[name=pay]:checked").val()=="weixin"){
-                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
-            } else {
-                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
             }
         })
-        
-
-        /*高亮代码块行号*/
-        
-
-        /*访问数量*/
-        
-        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
-        
-
-        /*代码高亮，行号对齐*/
-        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
-
-        
-        
     }
+    viewer_init()
+</script> 
+<!-- MathJax -->
 
-    /*打赏页面隐藏与展示*/
-    
-    function dashangToggle() {
-        $(".shang_box").fadeToggle();
-        $(".hide_box").fadeToggle();
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
     }
-    
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
 </script>
 
-<!--加入行号的高亮代码块样式-->
 
-<!--自定义样式设置-->
-<style>
-    
-    
-    .nav {
-        width: 542px;
-    }
-    .nav.fullscreen {
-        margin-left: -542px;
-    }
-    .nav-left {
-        width: 120px;
-    }
-    
-    
-    @media screen and (max-width: 1468px) {
-        .nav {
-            width: 492px;
-        }
-        .nav.fullscreen {
-            margin-left: -492px;
-        }
-        .nav-left {
-            width: 100px;
-        }
-    }
-    
-    
-    @media screen and (max-width: 1024px) {
-        .nav {
-            width: 492px;
-            margin-left: -492px
-        }
-        .nav.fullscreen {
-            margin-left: 0;
-        }
-    }
-    
-    @media screen and (max-width: 426px) {
-        .nav {
-            width: 100%;
-        }
-        .nav-left {
-            width: 100%;
-        }
-    }
-    
-    
-    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
-        color: #383636;
-    }
-    
-    
-    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
-        color: #5e5e5f;
-    }
-    
-    
-    .nav-right nav a.hover, #local-search-result a.hover{
-        background-color: #e2e0e0;
-    }
     
     
 
-    /*列表样式*/
-    
-
-    /* 背景图样式 */
-    
-    
-
-
-    /*引用块样式*/
-    
-
-    /*文章列表背景图*/
-    
-
-    
-</style>
-
-
-
-
-
-
+  </div>
+</body>
 
 </html>
