@@ -175,6 +175,106 @@
     
     
     <article
+  id="post-ES聚合后根据doc-count进行过滤"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ni-shen/ES%E8%81%9A%E5%90%88%E5%90%8E%E6%A0%B9%E6%8D%AEdoc-count%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4.html"
+    >ES聚合后根据 doc_count 进行过滤</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ni-shen/ES%E8%81%9A%E5%90%88%E5%90%8E%E6%A0%B9%E6%8D%AEdoc-count%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4.html" class="article-date">
+  <time datetime="2022-08-22T07:09:08.090Z" itemprop="datePublished">2022-08-22</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<h4 id="语句解读："><a href="#语句解读：" class="headerlink" title="语句解读："></a>语句解读：</h4><p>搜索从当前开始100分钟内，匹配当前uri的数据，针对用户名做聚合，将聚合条数大于8的用户展示出来。</p>
+</blockquote>
+<pre><code>GET /nginx-*/_search
+&#123;
+  &quot;size&quot;: 0, 
+  &quot;query&quot;: &#123;
+    &quot;bool&quot;: &#123;
+      
+      &quot;filter&quot;: [
+        &#123;
+          &quot;range&quot;: &#123;
+            &quot;@timestamp&quot;: &#123;
+              &quot;gte&quot;: &quot;now-100m&quot;
+            &#125;
+          &#125;
+        &#125;
+      ], 
+      
+      &quot;should&quot;: [
+        &#123;
+            &quot;match_phrase&quot;: 
+        &#123;
+            &quot;match_phrase&quot;: &#123;
+              &quot;request_uri.keyword&quot;: &quot;/zh-CN/account/login&quot;
+            &#125;
+        &#125;        
+      ],
+      &quot;minimum_should_match&quot;: 1
+    &#125;
+  &#125;,
+    &quot;aggs&quot;: &#123;
+    &quot;NAME&quot;: &#123;
+      &quot;terms&quot;: &#123;
+        &quot;field&quot;: &quot;Eaa-User.keyword&quot;,
+        &quot;size&quot;: 1000
+      &#125;,
+            &quot;aggs&quot;:&#123;
+        &quot;having&quot;: &#123;
+          &quot;bucket_selector&quot;: &#123;
+            &quot;buckets_path&quot;: &#123; 
+              &quot;view_count&quot;: &quot;_count&quot;
+            &#125;,
+            &quot;script&quot;: &quot;params.view_count &gt; 8&quot;
+          &#125;
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<blockquote>
+<h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Finley/p/9499534.html">https://www.cnblogs.com/Finley/p/9499534.html</a><br><a target="_blank" rel="noopener" href="https://my.oschina.net/bingzhong/blog/1975879">https://my.oschina.net/bingzhong/blog/1975879</a><br><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-pipeline.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-pipeline.html</a><br><a target="_blank" rel="noopener" href="https://discuss.elastic.co/t/filter-based-on-the-doc-count-with-aggregations/62677">https://discuss.elastic.co/t/filter-based-on-the-doc-count-with-aggregations/62677</a></p>
+</blockquote>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css"> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-Akamai-EAA"
   class="article article-type-post"
   itemscope

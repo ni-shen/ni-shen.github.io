@@ -6,7 +6,7 @@
   <link href="https://ni-shen.github.io/atom.xml" rel="self"/>
   
   <link href="https://ni-shen.github.io/"/>
-  <updated>2022-08-16T03:05:05.269Z</updated>
+  <updated>2022-08-22T07:09:08.091Z</updated>
   <id>https://ni-shen.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES聚合后根据 doc_count 进行过滤</title>
+    <link href="https://ni-shen.github.io/ni-shen/ES%E8%81%9A%E5%90%88%E5%90%8E%E6%A0%B9%E6%8D%AEdoc-count%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4.html"/>
+    <id>https://ni-shen.github.io/ni-shen/ES%E8%81%9A%E5%90%88%E5%90%8E%E6%A0%B9%E6%8D%AEdoc-count%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4.html</id>
+    <published>2022-08-22T07:09:08.090Z</published>
+    <updated>2022-08-22T07:09:08.091Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><h4 id="语句解读："><a href="#语句解读：" class="headerlink" title="语句解读："></a>语句解读：</h4><p>搜索从当前开始100分钟内，匹配当前uri的数据，针对用户名做聚合，将聚合条数大于8的用户展示出来。</p></blockquote><pre><code>GET /nginx-*/_search&#123;  &quot;size&quot;: 0,   &quot;query&quot;: &#123;    &quot;bool&quot;: &#123;            &quot;filter&quot;: [        &#123;          &quot;range&quot;: &#123;            &quot;@timestamp&quot;: &#123;              &quot;gte&quot;: &quot;now-100m&quot;            &#125;          &#125;        &#125;      ],             &quot;should&quot;: [        &#123;            &quot;match_phrase&quot;:         &#123;            &quot;match_phrase&quot;: &#123;              &quot;request_uri.keyword&quot;: &quot;/zh-CN/account/login&quot;            &#125;        &#125;              ],      &quot;minimum_should_match&quot;: 1    &#125;  &#125;,    &quot;aggs&quot;: &#123;    &quot;NAME&quot;: &#123;      &quot;terms&quot;: &#123;        &quot;field&quot;: &quot;Eaa-User.keyword&quot;,        &quot;size&quot;: 1000      &#125;,            &quot;aggs&quot;:&#123;        &quot;having&quot;: &#123;          &quot;bucket_selector&quot;: &#123;            &quot;buckets_path&quot;: &#123;               &quot;view_count&quot;: &quot;_count&quot;            &#125;,            &quot;script&quot;: &quot;params.view_count &gt; 8&quot;          &#125;        &#125;      &#125;    &#125;  &#125;&#125;</code></pre><blockquote><h4 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h4><p><a href="https://www.cnblogs.com/Finley/p/9499534.html">https://www.cnblogs.com/Finley/p/9499534.html</a><br><a href="https://my.oschina.net/bingzhong/blog/1975879">https://my.oschina.net/bingzhong/blog/1975879</a><br><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-pipeline.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-pipeline.html</a><br><a href="https://discuss.elastic.co/t/filter-based-on-the-doc-count-with-aggregations/62677">https://discuss.elastic.co/t/filter-based-on-the-doc-count-with-aggregations/62677</a></p></blockquote><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;h4 id=&quot;语句解读：&quot;&gt;&lt;a href=&quot;#语句解读：&quot; class=&quot;headerlink&quot; title=&quot;语句解读：&quot;&gt;&lt;/a&gt;语句解读：&lt;/h4&gt;&lt;p&gt;搜索从当前开始100分钟内，匹配当前uri的数据，针对用户名做聚合，将聚合条数大于8的用户</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>零信任产品之 Akamai EAA</title>
